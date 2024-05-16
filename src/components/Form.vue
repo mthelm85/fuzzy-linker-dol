@@ -178,8 +178,8 @@ const searchTree = () => {
   const smallerFileSelection = file1.value.size <= file2.value.size ? selected1.value : selected2.value;
 
   let csvData = 'data:text/csv;charset=utf-8,';
-  csvData += file1.value.size > file2.value.size ? file1Headers.value.map(header => `${header}1`).join(',') + ',' : file2Headers.value.map(header => `${header}2`).join(',') + ',';
-  csvData += file1.value.size <= file2.value.size ? file1Headers.value.map(header => `${header}1`).join(',') + '\n' : file2Headers.value.map(header => `${header}2`).join(',') + '\n';
+  csvData += smallerFile === file1.value ? file1Headers.value.map(header => `${header}1`).join(',') + ',' : file2Headers.value.map(header => `${header}2`).join(',') + ',';
+  csvData += smallerFile === file1.value ? file2Headers.value.map(header => `${header}2`).join(',') + '\n' : file1Headers.value.map(header => `${header}1`).join(',') + '\n';
 
   const reader = new FileReader();
   reader.onload = (e) => {
