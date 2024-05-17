@@ -96,9 +96,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-overlay :model-value="isLoading" class="align-center justify-center">
-        <v-progress-circular :size="70" :width="7" indeterminate color="deep-orange">
-        </v-progress-circular>
+      <v-overlay :model-value="isLoading">
       </v-overlay>
     </v-responsive>
   </v-container>
