@@ -2,8 +2,8 @@ pub mod bktree;
 pub mod levenshtein;
 mod utils;
 
-use wasm_bindgen::prelude::*;
 use serde_wasm_bindgen::to_value;
+use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen(start)]
 pub fn main_js() -> Result<(), JsValue> {
@@ -31,8 +31,7 @@ impl BKTreeWrapper {
     }
 
     pub fn search(&self, value: String, tolerance: f64) -> JsValue {
-        let tolerance_distance = (tolerance * value.len() as f64).round() as u32;
-        let results = self.tree.search(&value, tolerance_distance);
+        let results = self.tree.search(&value, tolerance);
         to_value(&results).unwrap()
     }
 }

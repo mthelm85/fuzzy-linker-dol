@@ -15,7 +15,8 @@
         <v-col cols="12">
           <v-card class="pt-5 px-4" rounded="lg" variant="tonal">
             <v-row>
-              <v-col>Step 1: Select the two files you would like to join</v-col>
+              <v-col class="text-center"><strong>Step 1:</strong> Select the two files you would like to join
+              </v-col>
             </v-row>
             <v-row>
               <v-col cols="6">
@@ -26,7 +27,19 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col>Step 2: Map the join columns</v-col>
+              <v-col class="text-center">
+                <strong>Step 2:</strong> Map the join columns
+                <v-btn icon size="x-small">
+                  <v-icon color="grey-lighten-1">
+                    mdi-help
+                  </v-icon>
+                  <v-tooltip activator="parent" location="bottom" width="250">
+                    Select up to 4 columns to join on. Map each column from File 1 to a column in File 2.
+                    For example, a column called <code>biz_name</code> in File 1 might be mapped to a column called <code>Business_Name</code>
+                    in File 2.
+                  </v-tooltip>
+                </v-btn>
+              </v-col>
             </v-row>
             <v-row>
               <v-col cols="6">
@@ -51,7 +64,18 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col>Step 3: Set the tolerance level</v-col>
+              <v-col class="text-center">
+                <strong>Step 3:</strong> Set the tolerance level
+                <v-btn icon size="x-small">
+                  <v-icon color="grey-lighten-1">
+                    mdi-help
+                  </v-icon>
+                  <v-tooltip activator="parent" location="top" width="250">
+                    The tolerance level determines how closely the text in the join columns must match. A tolerance of 0.0 means
+                    the columns must match exactly. A tolerance of 1.0 means the columns can be completely different.
+                  </v-tooltip>
+                </v-btn>
+              </v-col>
             </v-row>
             <v-row>
               <v-col cols="12">
@@ -60,7 +84,8 @@
             </v-row>
             <v-row class="d-flex justify-center align-center pb-6">
               <v-col cols="auto">
-                <v-btn :disabled="isGoButtonDisabled" prepend-icon="mdi-rocket" size="x-large" rounded="xl" @click="handleGoClick">
+                <v-btn :disabled="isGoButtonDisabled" prepend-icon="mdi-rocket" size="x-large" rounded="xl"
+                  @click="handleGoClick">
                   <template v-slot:prepend>
                     <v-icon color="success"></v-icon>
                   </template>
@@ -187,6 +212,7 @@ const searchTree = () => {
   csvData += smallerFile === file1.value ? file2Headers.value.map(header => `${header}2`).join(',') + '\n' : file1Headers.value.map(header => `${header}1`).join(',') + '\n';
 
   const reader = new FileReader();
+
   reader.onload = (e) => {
     parse(e.target.result, {
       header: true,

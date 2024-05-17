@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use crate::levenshtein::levenshtein_distance;
+use std::collections::HashMap;
 
 pub struct BKTree {
     root: Option<Node>,
@@ -24,7 +24,7 @@ impl BKTree {
         }
     }
 
-    pub fn search(&self, value: &str, tolerance: u32) -> Vec<Vec<String>> {
+    pub fn search(&self, value: &str, tolerance: f64) -> Vec<Vec<String>> {
         let mut results = Vec::new();
         if let Some(root) = &self.root {
             root.search(value, tolerance, &mut results);
@@ -51,16 +51,18 @@ impl Node {
         }
     }
 
-    fn search<'a>(&'a self, value: &str, tolerance: u32, results: &mut Vec<Vec<String>>) {
+    fn search<'a>(&'a self, value: &str, tolerance: f64, results: &mut Vec<Vec<String>>) {
         let distance = levenshtein_distance(&self.value, value);
-    
-        if distance <= tolerance {
+        let max_len = std::cmp::max(self.value.len(), value.len()) as f64;
+        let tolerance_distance = (tolerance * max_len).round() as u32;
+
+        if distance <= tolerance_distance {
             results.push(self.row_data.clone());
         }
-    
-        let min_distance = distance.saturating_sub(tolerance);
-        let max_distance = distance.saturating_add(tolerance);
-    
+
+        let min_distance = distance.saturating_sub(tolerance_distance);
+        let max_distance = distance.saturating_add(tolerance_distance);
+
         for (_, child) in &self.children {
             if distance >= min_distance && distance <= max_distance {
                 child.search(value, tolerance, results);
@@ -77,20 +79,31 @@ mod tests {
     fn test_bktree() {
         let mut tree = BKTree::new();
 
-        tree.insert("hello".to_string(), vec!["row1colA".to_string(), "row1colB".to_string()]);
-        tree.insert("world".to_string(), vec!["row2colA".to_string(), "row2colB".to_string()]);
-        tree.insert("rust".to_string(), vec!["row3colA".to_string(), "row3colB".to_string()]);
+        tree.insert(
+            "hello".to_string(),
+            vec!["row1colA".to_string(), "row1colB".to_string()],
+        );
+        tree.insert(
+            "world".to_string(),
+            vec!["row2colA".to_string(), "row2colB".to_string()],
+        );
+        tree.insert(
+            "rust".to_string(),
+            vec!["row3colA".to_string(), "row3colB".to_string()],
+        );
 
-        let results = tree.search("hello", 0);
+        let results = tree.search("hello", 0.0);
         assert_eq!(results[0], vec!["row1colA", "row1colB"]);
 
-        let results = tree.search("world", 0);
+        let results = tree.search("world", 0.0);
         assert_eq!(results[0], vec!["row2colA", "row2colB"]);
 
-        let results = tree.search("rust", 0);
+        let results = tree.search("rust", 0.0);
         assert_eq!(results[0], vec!["row3colA", "row3colB"]);
 
-        let results = tree.search("rest", 1);
-        assert!(results.iter().any(|row_data| row_data == &vec!["row3colA", "row3colB"]));
+        let results = tree.search("rest", 1.0);
+        assert!(results
+            .iter()
+            .any(|row_data| row_data == &vec!["row3colA", "row3colB"]));
     }
 }
