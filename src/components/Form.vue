@@ -108,7 +108,7 @@
 import { computed } from 'vue'
 import { onMounted, ref } from 'vue'
 import { parse } from 'papaparse'
-import init, { BKTreeWrapper } from '../../bktree/pkg/bktree.js'
+import init, { BKTreeWrapper } from '@/../bktree/pkg/bktree.js'
 
 const tolerance = ref(0.3)
 const file1 = ref(null)
