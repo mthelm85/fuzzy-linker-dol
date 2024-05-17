@@ -60,7 +60,7 @@
             </v-row>
             <v-row class="d-flex justify-center align-center pb-6">
               <v-col cols="auto">
-                <v-btn prepend-icon="mdi-rocket" size="x-large" rounded="xl" @click="handleGoClick">
+                <v-btn :disabled="isGoButtonDisabled" prepend-icon="mdi-rocket" size="x-large" rounded="xl" @click="handleGoClick">
                   <template v-slot:prepend>
                     <v-icon color="success"></v-icon>
                   </template>
@@ -80,6 +80,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { onMounted, ref } from 'vue'
 import { parse } from 'papaparse'
 import init, { BKTreeWrapper } from '../../bktree/pkg/bktree.js'
@@ -98,6 +99,10 @@ let tree = null
 
 onMounted(async () => {
   wasmModule.value = await init()
+})
+
+const isGoButtonDisabled = computed(() => {
+  return !file1.value || !file2.value || selected1.value.length === 0 || selected2.value.length === 0
 })
 
 const handleFileChange = (file, headers) => {
