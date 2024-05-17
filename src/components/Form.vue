@@ -117,7 +117,7 @@ const file1Headers = ref([])
 const file2Headers = ref([])
 const selected1 = ref([])
 const selected2 = ref([])
-const isLoading = ref(true)
+const isLoading = ref(false)
 const wasmModule = ref(null)
 let tree = null
 
@@ -179,9 +179,6 @@ const buildTree = async () => {
         key = key.replace(/\W/g, '').toUpperCase();
         const values = Object.values(results.data)
         tree.insert(key, values)
-      },
-      complete: () => {
-        isLoading.value = false
       },
       error: (error, file) => {
         console.error('Error while reading file:', error)
