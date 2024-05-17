@@ -2,7 +2,7 @@
   <v-footer height="40" app>
     <v-row>
       <v-col class="text-caption text-center">
-          <span>OEDA</span>
+        <span>&copy; {{ new Date().getFullYear() }} OEDA</span>
       </v-col>
     </v-row>
   </v-footer>

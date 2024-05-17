@@ -97,7 +97,7 @@
         </v-col>
       </v-row>
       <v-overlay :model-value="isLoading" class="align-center justify-center">
-        <v-progress-circular :size="70" :width="7" indeterminate>
+        <v-progress-circular :size="70" :width="7" indeterminate color="deep-orange">
         </v-progress-circular>
       </v-overlay>
     </v-responsive>
@@ -118,7 +118,6 @@ const file2Headers = ref([])
 const selected1 = ref([])
 const selected2 = ref([])
 const isLoading = ref(false)
-
 const wasmModule = ref(null)
 let tree = null
 
@@ -216,25 +215,22 @@ const searchTree = () => {
   reader.onload = (e) => {
     parse(e.target.result, {
       header: true,
-      step: (results) => {
-        if (Object.values(results.data).every(value => value === '')) {
-          return;
-        }
-        let key = smallerFileSelection.map(header => results.data[header]).join(' ')
-        key = key.replace(/\W/g, '').toUpperCase();
-        const searchResults = tree.search(key, tolerance.value)
-        if (searchResults.length > 0) {
-          searchResults.forEach(resultArray => {
-            const row = Object.values(results.data).map(value => `${value}`.replace(/,/g, '')).join(',');
-            const resultRow = resultArray.map(value => `${value}`.replace(/,/g, '')).join(','); // Remove all commas from the strings in the array
-            csvData += `${row},${resultRow}\n`;
-          });
-        }
-      },
-      error: (error, _) => {
-        console.error('Error while reading file:', error)
-      },
-      complete: () => {
+      complete: (results) => {
+        results.data.forEach(row => {
+          if (Object.values(row).every(value => value === '')) {
+            return;
+          }
+          let key = smallerFileSelection.map(header => row[header]).join(' ')
+          key = key.replace(/\W/g, '').toUpperCase();
+          const searchResults = tree.search(key, tolerance.value)
+          if (searchResults.length > 0) {
+            searchResults.forEach(resultArray => {
+              const rowString = Object.values(row).map(value => `${value}`.replace(/,/g, '')).join(',');
+              const resultRow = resultArray.map(value => `${value}`.replace(/,/g, '')).join(','); // Remove all commas from the strings in the array
+              csvData += `${rowString},${resultRow}\n`;
+            });
+          }
+        });
         isLoading.value = false
         const encodedUri = encodeURI(csvData);
         const link = document.createElement('a');
@@ -242,6 +238,9 @@ const searchTree = () => {
         link.setAttribute('download', 'search_results.csv');
         document.body.appendChild(link);
         link.click();
+      },
+      error: (error, _) => {
+        console.error('Error while reading file:', error)
       }
     })
   }
