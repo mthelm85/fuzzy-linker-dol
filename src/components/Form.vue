@@ -117,7 +117,7 @@ const file1Headers = ref([])
 const file2Headers = ref([])
 const selected1 = ref([])
 const selected2 = ref([])
-const isLoading = ref(false)
+const isLoading = ref(true)
 const wasmModule = ref(null)
 let tree = null
 
