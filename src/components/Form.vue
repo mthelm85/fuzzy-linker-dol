@@ -20,10 +20,10 @@
             </v-row>
             <v-row>
               <v-col cols="6">
-                <v-file-input label="File 1" variant="outlined" @change="handleFile1Change" />
+                <v-file-input label="File 1" variant="outlined" @change="handleFile1Change" accept=".csv" />
               </v-col>
               <v-col cols="6">
-                <v-file-input label="File 2" variant="outlined" @change="handleFile2Change" />
+                <v-file-input label="File 2" variant="outlined" @change="handleFile2Change" accept=".csv" />
               </v-col>
             </v-row>
             <v-row>
