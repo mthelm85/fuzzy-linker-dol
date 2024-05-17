@@ -1,0 +1,17 @@
+{
+  "name": "bktree",
+  "collaborators": [
+    "Matt Helm <mthelm85@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "bktree_bg.wasm",
+    "bktree.js",
+    "bktree.d.ts"
+  ],
+  "module": "bktree.js",
+  "types": "bktree.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
