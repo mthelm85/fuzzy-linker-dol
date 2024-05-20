@@ -44,23 +44,23 @@
             <v-row>
               <v-col cols="6">
                 <v-select v-model="selected1[0]" :items="file1Headers" density="compact" variant="outlined"
-                  label="Compact" append-icon="mdi-arrow-left"></v-select>
+                  label="" append-icon="mdi-arrow-left"></v-select>
                 <v-select v-model="selected1[1]" :items="file1Headers" density="compact" variant="outlined"
-                  label="Compact" append-icon="mdi-arrow-left"></v-select>
+                  label="" append-icon="mdi-arrow-left"></v-select>
                 <v-select v-model="selected1[2]" :items="file1Headers" density="compact" variant="outlined"
-                  label="Compact" append-icon="mdi-arrow-left"></v-select>
+                  label="" append-icon="mdi-arrow-left"></v-select>
                 <v-select v-model="selected1[3]" :items="file1Headers" density="compact" variant="outlined"
-                  label="Compact" append-icon="mdi-arrow-left"></v-select>
+                  label="" append-icon="mdi-arrow-left"></v-select>
               </v-col>
               <v-col cols="6">
                 <v-select v-model="selected2[0]" :items="file2Headers" density="compact" variant="outlined"
-                  label="Compact" prepend-icon="mdi-arrow-right"></v-select>
+                  label="" prepend-icon="mdi-arrow-right"></v-select>
                 <v-select v-model="selected2[1]" :items="file2Headers" density="compact" variant="outlined"
-                  label="Compact" prepend-icon="mdi-arrow-right"></v-select>
+                  label="" prepend-icon="mdi-arrow-right"></v-select>
                 <v-select v-model="selected2[2]" :items="file2Headers" density="compact" variant="outlined"
-                  label="Compact" prepend-icon="mdi-arrow-right"></v-select>
+                  label="" prepend-icon="mdi-arrow-right"></v-select>
                 <v-select v-model="selected2[3]" :items="file2Headers" density="compact" variant="outlined"
-                  label="Compact" prepend-icon="mdi-arrow-right"></v-select>
+                  label="" prepend-icon="mdi-arrow-right"></v-select>
               </v-col>
             </v-row>
             <v-row>
