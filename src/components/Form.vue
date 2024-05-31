@@ -217,18 +217,20 @@ const searchTree = () => {
           let key = smallerFileSelection.map(header => row[header]).join(' ')
           key = key.replace(/\W/g, '').toUpperCase();
           const searchResults = tree.search(key, tolerance.value)
+          console.log(searchResults)
           if (searchResults.length > 0) {
             searchResults.forEach(resultArray => {
-              const rowString = Object.values(row).map(value => `${value}`.replace(/,/g, '')).join(',');
-              const resultRow = resultArray.map(value => `${value}`.replace(/,/g, '')).join(','); // Remove all commas from the strings in the array
+              const rowString = Object.values(row).map(value => `"${value.replace(/,/g, '')}"`).join(',');
+              const resultRow = resultArray.map(value => `"${value.replace(/,/g, '')}"`).join(',');  // Remove all commas from the strings in the array
               csvData += `${rowString},${resultRow}\n`;
             });
           }
         });
         isLoading.value = false
-        const encodedUri = encodeURI(csvData);
+        const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
+        link.setAttribute('href', url);
         link.setAttribute('download', 'search_results.csv');
         document.body.appendChild(link);
         link.click();
