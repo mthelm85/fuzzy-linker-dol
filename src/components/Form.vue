@@ -217,7 +217,6 @@ const searchTree = () => {
           let key = smallerFileSelection.map(header => row[header]).join(' ')
           key = key.replace(/\W/g, '').toUpperCase();
           const searchResults = tree.search(key, tolerance.value)
-          console.log(searchResults)
           if (searchResults.length > 0) {
             searchResults.forEach(resultArray => {
               const rowString = Object.values(row).map(value => `"${value.replace(/,/g, '')}"`).join(',');
