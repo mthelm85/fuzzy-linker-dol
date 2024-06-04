@@ -200,7 +200,7 @@ const searchTree = () => {
   const smallerFile = file1.value.size <= file2.value.size ? file1.value : file2.value;
   const smallerFileSelection = file1.value.size <= file2.value.size ? selected1.value : selected2.value;
 
-  let csvData = 'data:text/csv;charset=utf-8,';
+  let csvData = '';
   csvData += smallerFile === file1.value ? file1Headers.value.map(header => `${header}1`).join(',') + ',' : file2Headers.value.map(header => `${header}2`).join(',') + ',';
   csvData += smallerFile === file1.value ? file2Headers.value.map(header => `${header}2`).join(',') + '\n' : file1Headers.value.map(header => `${header}1`).join(',') + '\n';
 
